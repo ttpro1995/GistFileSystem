@@ -21,11 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-
 package me.thaithien.gist.gistfilesystem;
 
-import org.eclipse.egit.github.core.GistFile;
+import java.io.File;
+import java.io.FileInputStream;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -37,9 +36,9 @@ import static org.junit.Assert.*;
  *
  * @author thaithien
  */
-public class GistHelperTest {
+public class GistFileSystemTest {
     
-    public GistHelperTest() {
+    public GistFileSystemTest() {
     }
     
     @BeforeClass
@@ -52,7 +51,6 @@ public class GistHelperTest {
     
     @Before
     public void setUp() {
-        
     }
     
     @After
@@ -60,33 +58,39 @@ public class GistHelperTest {
     }
 
     /**
-     * Test of upload method, of class GistHelper.
+     * Test of storeFile method, of class GistFileSystem.
      */
     @Test
-    public void testUpload() throws Exception {
-        System.out.println("upload");
-        String name = "testUpload.txt";
-        String des = "test upload with JUnit";
-        String content = "testUpload now";
-        GistHelper instance = GistHelper.getInstance();
-        String result = instance.upload(name, des, content);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        System.out.print(result);
+    public void testStoreFile() throws Exception {
+        System.out.println("storeFile");
+        String filepath = "testdata/source/Lieat_viet.pdf";
+        GistFileSystem instance = GistFileSystem.getInstance();
+        String expResult = "";
+        String result = instance.storeFile(filepath);
+        System.out.println(result);
     }
 
     /**
-     * Test of download method, of class GistHelper.
+     * Test of getFile method, of class GistFileSystem.
      */
     @Test
-    public void testDownload() throws Exception {
-        System.out.println("download");
-        String id = "6081cc947734e312f5393dfb274a076e";
-        GistHelper instance = GistHelper.getInstance();
-        String expResult = "wQm&AZ99TQMS3LEf8P00IBD*qC@$TM3wVWr5@*^qt3*i7rJG48bqDYhKRpBAL6e1mg&^wB*43Kmm7Lr^0eg*e76Ijsp#r58cP@@9Xs5xgJyt8A8JR33uxI&fUWK8Kun0MfieHD6p*MtbB9a4!UDbyc6wbUHhZKDvx6RvB3B0@dmKx83Lr9Ttu34a9I!H8uPpsSWGkcV3";
-        GistFile result = instance.download(id);
-        assertEquals(expResult, result.getContent());
-
+    public void testGetFile() throws Exception {
+        System.out.println("getFile");
+        String gistID = "dcc73b53a14316ec035f3d4999a963c1";
+        String filedir = "testdata/download";
+        GistFileSystem instance = GistFileSystem.getInstance();
+        instance.getFile(gistID, filedir);
+        
+        // calculate hash md5
+        FileInputStream source = new FileInputStream(new File("testdata/source/Lieat_viet.pdf"));
+        String md5Source = org.apache.commons.codec.digest.DigestUtils.md5Hex(source);
+        source.close();
+        
+        FileInputStream download = new FileInputStream(new File("testdata/download/Lieat_viet.pdf"));
+        String md5Download = org.apache.commons.codec.digest.DigestUtils.md5Hex(download);
+        download.close();
+        
+        assertEquals(md5Source, md5Download);
     }
     
 }

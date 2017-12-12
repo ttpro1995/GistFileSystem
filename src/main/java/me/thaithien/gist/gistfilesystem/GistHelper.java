@@ -24,6 +24,7 @@
 package me.thaithien.gist.gistfilesystem;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 import org.eclipse.egit.github.core.Gist;
@@ -53,7 +54,7 @@ public class GistHelper {
     /**
      * Authenticate with personal access token
      * Get access token here https://github.com/settings/tokens
-     * @param accessToken 
+     * @param accessToken your accessToken
      */
     public void authenticate(String accessToken){
         this.service.getClient().setOAuth2Token(accessToken);
@@ -72,10 +73,10 @@ public class GistHelper {
     
     /**
      * Upload a text file on gist. Only one file per gist.
-     * @param name the only file name
-     * @param des gist description
-     * @param content file content
-     * @return gist id
+     * @param name  the only file name
+     * @param des   gist description
+     * @param content   file content
+     * @return Gist ID which is used to retrieve gist  
      * @throws IOException 
      */
     public String upload(String name, String des, String content) throws IOException{
@@ -84,7 +85,7 @@ public class GistHelper {
         
         Gist gist = new Gist();
         gist.setDescription(des);
-        gist.setFiles(Collections.singletonMap(name+".txt", file));
+        gist.setFiles(Collections.singletonMap(name, file));
     
         gist = service.createGist(gist);
         return gist.getId();
@@ -92,19 +93,26 @@ public class GistHelper {
     
     /**
      * Download gist
-     * Can only download text gist
+     * Can only download text gist with ONE file
      * @param id gist id
-     * @return string content of gist
+     * @return a GistFile object
      * @throws IOException 
      */
-    public String download(String id) throws IOException{
+    public GistFile download(String id) throws IOException{
         Gist gist = service.getGist(id);
         Map<String, GistFile> files = gist.getFiles();
-        String result = "";
-        for ( String key : files.keySet() ) {
+        int n_file = 0;
+        GistFile ret_file = null;
+        for (String key : files.keySet()) { 
+            // IT SHOULD BE ONLY ONE FILE
             GistFile file = files.get(key);
-            result = result + file.getContent();
+            ret_file = file;
+            n_file += 1;
+            if (n_file > 1){
+                throw new IOException("More than one file per gist "+id);
+            }
         }        
-        return result;
+        
+        return ret_file;
     }
 }
