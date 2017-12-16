@@ -25,6 +25,11 @@ package me.thaithien.gist.gistfilesystem;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -91,6 +96,48 @@ public class GistFileSystemTest {
         download.close();
         
         assertEquals(md5Source, md5Download);
+    }
+
+    /**
+     * Test of getInstance method, of class GistFileSystem.
+     */
+    @Test
+    public void testGetInstance() {
+        System.out.println("getInstance");
+        GistFileSystem result = GistFileSystem.getInstance();
+    }
+
+    /**
+     * Test of storeBigFile method, of class GistFileSystem.
+     */
+    @Test
+    public void testStoreBigFile() throws Exception {
+        System.out.println("storeBigFile");
+        String filepath = "testdata/others/silver-tabby-cat-lying-on-brown-wooden-surface.jpeg";
+        GistFileSystem instance = GistFileSystem.getInstance();
+        String expResult = "";
+        String result = instance.storeBigFile(filepath);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of partitionEncodeString method, of class GistFileSystem.
+     */
+    @Test
+    public void testPartitionEncodeString() throws Exception {
+        System.out.println("partitionEncodeString");
+        String file_path = "testdata/others/silver-tabby-cat-lying-on-brown-wooden-surface.jpeg";
+        Path path = Paths.get(file_path);
+        byte[] bytes = Files.readAllBytes(path);
+        byte[] encoded = Base64.getEncoder().encode(bytes);
+        String encoded_str = new String(encoded);
+        List<PartitionInfo> result = GistFileSystem.partitionEncodeString(encoded_str);
+        System.out.println(result.size());
+        for (int i = 0; i < result.size(); i++){
+            System.out.println(result.get(i).length());
+        }
     }
     
 }

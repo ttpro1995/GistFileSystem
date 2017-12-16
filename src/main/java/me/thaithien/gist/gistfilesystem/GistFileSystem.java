@@ -28,7 +28,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.egit.github.core.GistFile;
 
@@ -43,6 +46,11 @@ import org.eclipse.egit.github.core.GistFile;
 public class GistFileSystem {
     private static GistFileSystem INSTANCE = new GistFileSystem();
     private GistHelper gistHelper = null;
+    
+    /**
+     * Limit size of encoded string
+     */
+    private static int SIZE_LIMIT = 1000000;
 
     /**
      * Initialize and get instance of GistHelper
@@ -86,6 +94,51 @@ public class GistFileSystem {
         filename = filename.substring(0, filename.length() - 4);  // remove .txt
         byte[] decoded = Base64.getDecoder().decode(encoded_str);
         FileUtils.writeByteArrayToFile(new File(filedir, filename), decoded);
+    }
+    
+    /**
+     * Use to store big file. 
+     * Encode base64 file
+     * Split base64 string into many small string of size SIZE_LIMIT
+     * up each part as a gist
+     * Write gistID of all part into another gist
+     * Return gistID of final gist
+     * @param filepath
+     * @param gist id of a gist that contain ID of all part
+     * @throws IOException 
+     */
+    public String storeBigFile(String filepath) throws IOException {
+        String dummy = "meow";
+        
+        Path path = Paths.get(filepath);
+        
+        byte[] bytes = Files.readAllBytes(path);
+        byte[] encoded = Base64.getEncoder().encode(bytes);
+        String encoded_str = new String(encoded);
+        if (encoded_str.length() > SIZE_LIMIT){
+            // String[] splited_encoded = partitionEncodeString(encoded_str);
+            //TODO: continue here
+            
+        }else{
+            //small file, no trouble
+            return gistHelper.upload(path.getFileName()+".txt", "", encoded_str);
+        }
+        return dummy;        
+    }
+    
+    /**
+     * Split string into part
+     * @param encoded base64 of full file
+     * @return array of partition info
+     */
+    public static List<PartitionInfo> partitionEncodeString(String encoded){
+        String[] result = null;
+        result = encoded.split("(?<=\\G.{" + Integer.toString(SIZE_LIMIT) +"})");
+        List<PartitionInfo> result_list = new ArrayList<PartitionInfo>();
+        for (int i = 0; i < result.length; i ++){
+            result_list.add(new PartitionInfo(i, result[i]));
+        }
+        return result_list;
     }
     
 }
