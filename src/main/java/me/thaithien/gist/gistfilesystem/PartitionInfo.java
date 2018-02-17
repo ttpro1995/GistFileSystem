@@ -47,8 +47,9 @@ import jdk.nashorn.internal.parser.JSONParser;
 public class PartitionInfo implements Comparable<PartitionInfo> {
 
     /**
-     * read json from file
-     *
+     * read Partition Info from file
+     * part: the order to merge
+     * content: base64 String (after split) OR gist ID (after upload gist) 
      * @param filepath
      * @return
      */
@@ -82,7 +83,8 @@ public class PartitionInfo implements Comparable<PartitionInfo> {
 
     /**
      * Save partition to file as json
-     *
+     * part: the order to merge
+     * content: gist id
      * @param filepath path to output json
      * @param partitionList list of partitionInfo to write
      * @return true if success
@@ -120,7 +122,7 @@ public class PartitionInfo implements Comparable<PartitionInfo> {
     public final int part;
 
     /**
-     * ID of gist contain this partition or base64 string
+     * ID of gist contain this partition OR base64 string
      */
     public final String content;
 
