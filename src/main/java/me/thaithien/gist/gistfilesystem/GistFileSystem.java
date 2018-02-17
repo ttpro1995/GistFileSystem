@@ -116,8 +116,9 @@ public class GistFileSystem {
         byte[] encoded = Base64.getEncoder().encode(bytes);
         String encoded_str = new String(encoded);
         if (encoded_str.length() > SIZE_LIMIT){
-            // String[] splited_encoded = partitionEncodeString(encoded_str);
+            List splited_encoded = partitionEncodeString(encoded_str);
             //TODO: continue here
+            // write partition info into text file
             
         }else{
             //small file, no trouble
@@ -125,6 +126,7 @@ public class GistFileSystem {
         }
         return dummy;        
     }
+    
     
     /**
      * Split string into part
