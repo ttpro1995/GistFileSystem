@@ -29,9 +29,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
+
+import me.thaithien.gist.gistfilesystem.manager.PartitionManager;
+import me.thaithien.gist.gistfilesystem.object.Partition;
+import me.thaithien.gist.gistfilesystem.object.PartitionInfo;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.egit.github.core.GistFile;
 
@@ -104,7 +107,6 @@ public class GistFileSystem {
      * Write gistID of all part into another gist
      * Return gistID of final gist
      * @param filepath
-     * @param gist id of a gist that contain ID of all part
      * @throws IOException 
      */
     public String storeBigFile(String filepath) throws IOException {
@@ -116,7 +118,8 @@ public class GistFileSystem {
         byte[] encoded = Base64.getEncoder().encode(bytes);
         String encoded_str = new String(encoded);
         if (encoded_str.length() > SIZE_LIMIT){
-            List splited_encoded = partitionEncodeString(encoded_str);
+            PartitionInfo encodedPartitionInfo = PartitionManager.partitionEncodeString(path.getFileName().toString(), encoded_str, SIZE_LIMIT);
+
             //TODO: continue here
             // write partition info into text file
             
@@ -127,20 +130,7 @@ public class GistFileSystem {
         return dummy;        
     }
     
-    
-    /**
-     * Split string into part
-     * @param encoded base64 of full file
-     * @return array of partition info
-     */
-    public static List<PartitionInfo> partitionEncodeString(String encoded){
-        String[] result = null;
-        result = encoded.split("(?<=\\G.{" + Integer.toString(SIZE_LIMIT) +"})");
-        List<PartitionInfo> result_list = new ArrayList<PartitionInfo>();
-        for (int i = 0; i < result.length; i ++){
-            result_list.add(new PartitionInfo(i, result[i]));
-        }
-        return result_list;
-    }
+
+
     
 }

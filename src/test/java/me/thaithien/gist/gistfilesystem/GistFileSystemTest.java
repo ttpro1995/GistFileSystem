@@ -30,6 +30,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.List;
+
+import me.thaithien.gist.gistfilesystem.object.PartitionInfo;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
