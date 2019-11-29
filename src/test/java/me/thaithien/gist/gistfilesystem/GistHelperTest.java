@@ -38,7 +38,7 @@ import static org.junit.Assert.*;
  * @author thaithien
  */
 public class GistHelperTest {
-    
+    private static String UNIT_TEST_API_KEY = "b1ceb74123c2a7d16f024a3d30b33f9d9587b9cd";
     public GistHelperTest() {
     }
     
@@ -69,10 +69,10 @@ public class GistHelperTest {
         String des = "test upload with JUnit";
         String content = "testUpload now";
         GistHelper instance = GistHelper.getInstance();
+        instance.authenticate(UNIT_TEST_API_KEY);
         String result = instance.upload(name, des, content);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        System.out.print(result);
+
+        System.out.println(result);
     }
 
     /**
