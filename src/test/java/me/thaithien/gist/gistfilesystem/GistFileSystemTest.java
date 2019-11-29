@@ -29,14 +29,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 
 import me.thaithien.gist.gistfilesystem.object.PartitionInfo;
+import org.eclipse.egit.github.core.Gist;
+import org.eclipse.egit.github.core.GistFile;
+import org.eclipse.egit.github.core.service.GistService;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.rules.TestRule;
+
 import static org.junit.Assert.*;
 
 /**
@@ -44,7 +50,7 @@ import static org.junit.Assert.*;
  * @author thaithien
  */
 public class GistFileSystemTest {
-    
+    private static String UNIT_TEST_API_KEY = "8c2c3158f8348df6ca5289692a0ffa213e40ee25";
     public GistFileSystemTest() {
     }
     
@@ -62,6 +68,14 @@ public class GistFileSystemTest {
     
     @After
     public void tearDown() {
+    }
+
+    @Test
+    public void smokeTest() throws Exception{
+        GistHelper instance = GistHelper.getInstance();
+        instance.authenticate(UNIT_TEST_API_KEY);
+        String result = instance.upload("meow.txt", "meowingful file", "I am Pusheen the cat");
+        System.out.print(result);
     }
 
     /**

@@ -38,7 +38,7 @@ import static org.junit.Assert.*;
  * @author thaithien
  */
 public class GistHelperTest {
-    private static String UNIT_TEST_API_KEY = "b1ceb74123c2a7d16f024a3d30b33f9d9587b9cd";
+    private static String UNIT_TEST_API_KEY = "8c2c3158f8348df6ca5289692a0ffa213e40ee25";
     public GistHelperTest() {
     }
     
