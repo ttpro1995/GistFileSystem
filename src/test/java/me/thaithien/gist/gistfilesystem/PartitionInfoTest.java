@@ -65,63 +65,63 @@ public class PartitionInfoTest {
     /**
      * Test of readFromFile method, of class PartitionInfo.
      */
-    @Test
-    public void testReadFromFile() {
-        System.out.println("readFromFile");
-        String filepath = "testdata/others/testPartitionInfo.json";
-
-        List<PartitionInfo> result = PartitionInfo.readFromFile(filepath);
-        List<PartitionInfo> expectedPartition = new ArrayList<>();
-        expectedPartition.add(new PartitionInfo(0, "https://gist.github.com/ttpro1995/7ae04526fb53b34e72f382b18db36065"));
-        expectedPartition.add(new PartitionInfo(1, "https://gist.github.com/unitycoder/62e2fca5bd00a3b907cfe0a95d04f62d"));
-        
-        for (PartitionInfo info : result){
-            System.out.println(String.valueOf(info.part) +" " + info.content);
-        }
-        
-        for (int i = 0; i < result.size(); i ++) {
-            int compareResult = result.get(i).compareTo(expectedPartition.get(i));
-            assertEquals(0, compareResult);
-        }
-    }
+//    @Test
+//    public void testReadFromFile() {
+//        System.out.println("readFromFile");
+//        String filepath = "testdata/others/testPartitionInfo.json";
+//
+//        List<PartitionInfo> result = PartitionInfo.readFromFile(filepath);
+//        List<PartitionInfo> expectedPartition = new ArrayList<>();
+//        expectedPartition.add(new PartitionInfo(0, "https://gist.github.com/ttpro1995/7ae04526fb53b34e72f382b18db36065"));
+//        expectedPartition.add(new PartitionInfo(1, "https://gist.github.com/unitycoder/62e2fca5bd00a3b907cfe0a95d04f62d"));
+//
+//        for (PartitionInfo info : result){
+//            System.out.println(String.valueOf(info.part) +" " + info.content);
+//        }
+//
+//        for (int i = 0; i < result.size(); i ++) {
+//            int compareResult = result.get(i).compareTo(expectedPartition.get(i));
+//            assertEquals(0, compareResult);
+//        }
+//    }
 
     /**
      * Test of saveToFile method, of class PartitionInfo.
      */
-    @Test
-    public void testSaveToFile() throws IOException {
-
-        System.out.println("partitionEncodeString");
-        String file_path = "testdata/others/testPartitionInfo.json";
-        Path path = Paths.get(file_path);
-
-        List<PartitionInfo> inPartition = new ArrayList<>();
-        inPartition.add(new PartitionInfo(0, "https://gist.github.com/ttpro1995/7ae04526fb53b34e72f382b18db36065"));
-        inPartition.add(new PartitionInfo(1, "https://gist.github.com/unitycoder/62e2fca5bd00a3b907cfe0a95d04f62d"));
-
-        System.out.println("saveToFile");
-        boolean expResult = true;
-        boolean result = PartitionInfo.saveToFile(file_path, inPartition);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testSaveToFile() throws IOException {
+//
+//        System.out.println("partitionEncodeString");
+//        String file_path = "testdata/others/testPartitionInfo.json";
+//        Path path = Paths.get(file_path);
+//
+//        List<PartitionInfo> inPartition = new ArrayList<>();
+//        inPartition.add(new PartitionInfo(0, "https://gist.github.com/ttpro1995/7ae04526fb53b34e72f382b18db36065"));
+//        inPartition.add(new PartitionInfo(1, "https://gist.github.com/unitycoder/62e2fca5bd00a3b907cfe0a95d04f62d"));
+//
+//        System.out.println("saveToFile");
+//        boolean expResult = true;
+//        boolean result = PartitionInfo.saveToFile(file_path, inPartition);
+//        assertEquals(expResult, result);
+//    }
 
     /**
      * Test of compareTo method, of class PartitionInfo.
      */
-    @Test
-    public void testCompareTo() {
-        System.out.println("compareTo");
-        PartitionInfo o = null;
-        PartitionInfo instance = null;
-        PartitionInfo part0 = new PartitionInfo(0, "https://gist.github.com/ttpro1995/7ae04526fb53b34e72f382b18db36065");
-        PartitionInfo part1 = new PartitionInfo(1, "https://gist.github.com/unitycoder/62e2fca5bd00a3b907cfe0a95d04f62d");
-        
-        int result = part0.compareTo(part1);
-        assertEquals(result, -1);
-        //assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testCompareTo() {
+//        System.out.println("compareTo");
+//        PartitionInfo o = null;
+//        PartitionInfo instance = null;
+//        PartitionInfo part0 = new PartitionInfo(0, "https://gist.github.com/ttpro1995/7ae04526fb53b34e72f382b18db36065");
+//        PartitionInfo part1 = new PartitionInfo(1, "https://gist.github.com/unitycoder/62e2fca5bd00a3b907cfe0a95d04f62d");
+//
+//        int result = part0.compareTo(part1);
+//        assertEquals(result, -1);
+//        //assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        //fail("The test case is a prototype.");
+//    }
 
     /**
      * Test of length method, of class PartitionInfo.

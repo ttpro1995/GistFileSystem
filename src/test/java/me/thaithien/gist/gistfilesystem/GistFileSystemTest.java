@@ -124,22 +124,22 @@ public class GistFileSystemTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of partitionEncodeString method, of class GistFileSystem.
-     */
-    @Test
-    public void testPartitionEncodeString() throws Exception {
-        System.out.println("partitionEncodeString");
-        String file_path = "testdata/others/silver-tabby-cat-lying-on-brown-wooden-surface.jpeg";
-        Path path = Paths.get(file_path);
-        byte[] bytes = Files.readAllBytes(path);
-        byte[] encoded = Base64.getEncoder().encode(bytes);
-        String encoded_str = new String(encoded);
-        List<PartitionInfo> result = GistFileSystem.partitionEncodeString(encoded_str);
-        System.out.println(result.size());
-        for (int i = 0; i < result.size(); i++){
-            System.out.println(result.get(i).length());
-        }
-    }
+//    /**
+//     * Test of partitionEncodeString method, of class GistFileSystem.
+//     */
+//    @Test
+//    public void testPartitionEncodeString() throws Exception {
+//        System.out.println("partitionEncodeString");
+//        String file_path = "testdata/others/silver-tabby-cat-lying-on-brown-wooden-surface.jpeg";
+//        Path path = Paths.get(file_path);
+//        byte[] bytes = Files.readAllBytes(path);
+//        byte[] encoded = Base64.getEncoder().encode(bytes);
+//        String encoded_str = new String(encoded);
+//        List<PartitionInfo> result = GistFileSystem.partitionEncodeString(encoded_str);
+//        System.out.println(result.size());
+//        for (int i = 0; i < result.size(); i++){
+//            System.out.println(result.get(i).length());
+//        }
+//    }
     
 }
