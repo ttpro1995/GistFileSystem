@@ -32,6 +32,7 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
+import me.thaithien.gist.gistfilesystem.manager.ApiKeyManager;
 import me.thaithien.gist.gistfilesystem.object.PartitionInfo;
 import org.eclipse.egit.github.core.Gist;
 import org.eclipse.egit.github.core.GistFile;
@@ -50,7 +51,7 @@ import static org.junit.Assert.*;
  * @author thaithien
  */
 public class GistFileSystemTest {
-    private static String UNIT_TEST_API_KEY = "8c2c3158f8348df6ca5289692a0ffa213e40ee25";
+    private static String UNIT_TEST_API_KEY = ApiKeyManager.getTestGitApiKey();
     public GistFileSystemTest() {
     }
     

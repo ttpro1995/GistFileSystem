@@ -25,12 +25,16 @@
 
 package me.thaithien.gist.gistfilesystem;
 
+import me.thaithien.gist.gistfilesystem.manager.ApiKeyManager;
 import org.eclipse.egit.github.core.GistFile;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.Base64;
+
 import static org.junit.Assert.*;
 
 /**
@@ -38,7 +42,8 @@ import static org.junit.Assert.*;
  * @author thaithien
  */
 public class GistHelperTest {
-    private static String UNIT_TEST_API_KEY = "8c2c3158f8348df6ca5289692a0ffa213e40ee25";
+    private static String UNIT_TEST_API_KEY = ApiKeyManager.getTestGitApiKey();
+
     public GistHelperTest() {
     }
     
@@ -58,6 +63,16 @@ public class GistHelperTest {
     @After
     public void tearDown() {
     }
+
+//    @Test
+//    public void keyToBase64(){
+//        byte[] b64Key = Base64.getEncoder().encode(UNIT_TEST_API_KEY.getBytes());
+//        String encodedKey = new String(b64Key);
+//        System.out.println(encodedKey);
+//        byte[] decodeKey = Base64.getDecoder().decode(encodedKey);
+//        String decodeKeyStr = new String(decodeKey);
+//        System.out.println(decodeKeyStr);
+//    }
 
     /**
      * Test of upload method, of class GistHelper.
