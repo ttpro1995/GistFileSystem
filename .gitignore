@@ -94,3 +94,5 @@ gradle-app.setting
 .gradletasknamecache
 
 .idea/
+
+testdata/download/Lieat_viet.pdf
