@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import com.google.gson.Gson;
 import me.thaithien.gist.gistfilesystem.manager.PartitionManager;
 import me.thaithien.gist.gistfilesystem.object.Partition;
 import me.thaithien.gist.gistfilesystem.object.PartitionInfo;
@@ -110,24 +111,27 @@ public class GistFileSystem {
      * @throws IOException 
      */
     public String storeBigFile(String filepath) throws IOException {
-        String dummy = "meow";
-        
         Path path = Paths.get(filepath);
         
         byte[] bytes = Files.readAllBytes(path);
         byte[] encoded = Base64.getEncoder().encode(bytes);
         String encoded_str = new String(encoded);
         if (encoded_str.length() > SIZE_LIMIT){
-            PartitionInfo encodedPartitionInfo = PartitionManager.partitionEncodeString(path.getFileName().toString(), encoded_str, SIZE_LIMIT);
+            PartitionInfo partitionInfo = PartitionManager.partitionEncodeString(path.getFileName().toString(), encoded_str, SIZE_LIMIT);
 
             //TODO: continue here
-            // write partition info into text file
-            
+            // Convert each content in partitionInfo into a single gist
+
+
+            Gson gson = new Gson();
+
+            // first, create json object
+            String partitionInfoJsonString = gson.toJson(partitionInfo);
+            return gistHelper.upload(path.getFileName()+".txt", "partition-info", partitionInfoJsonString);
         }else{
             //small file, no trouble
-            return gistHelper.upload(path.getFileName()+".txt", "", encoded_str);
+            return gistHelper.upload(path.getFileName()+".txt", "single-file", encoded_str);
         }
-        return dummy;        
     }
     
 

@@ -25,8 +25,13 @@ public class PartitionManager {
         return info;
     }
 
+    /**
+     * convert content of each partitionInfo into url
+     * @param partitionInfo
+     * @return
+     */
     public static PartitionInfo uploadPartitionInfo(PartitionInfo partitionInfo){
-//        PartitionInfo uploadPartitionInfo = partitionInfo.
+         //    PartitionInfo uploadPartitionInfo = partitionInfo.
 
         // TODO: work on here
         return null;

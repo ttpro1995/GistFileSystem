@@ -131,12 +131,11 @@ public class GistFileSystemTest {
     public void testStoreBigFile() throws Exception {
         System.out.println("storeBigFile");
         String filepath = "testdata/others/silver-tabby-cat-lying-on-brown-wooden-surface.jpeg";
+        GistHelper.getInstance().authenticate(ApiKeyManager.getTestGitApiKey());
         GistFileSystem instance = GistFileSystem.getInstance();
-        String expResult = "";
         String result = instance.storeBigFile(filepath);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println(result);
+
     }
 
 //    /**
