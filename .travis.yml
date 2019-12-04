@@ -5,6 +5,16 @@ os: linux
 dist: trusty
 jdk: oraclejdk8
 
+addons:
+  sonarcloud:
+    organization: "gistfilesystem"
+    token:
+      secure: "hzFCp688LddFQina/bHGmmPdL6w4fTp2b0RjQrBd8sMwfpqI6pNu3udYPAlkOjemhX04uTnFMAWlmk1V3ckBUZ5xXcTMJYlFg8CuHySWwAJrESl3Opj+ddhB5Jx4KaeAABwoEXG8tP8avHLwYyoKT1wqT979AUZnVg2R9NvCdOvmT/dF6bSQwcHW7gFlA8Q4Gw3okWsrqu9AfhyiXTbAFrjlaulfqfiUieWvqy1kbMQ/qC2s0C1CHBFXjp4HGAUGnssFmNJxfOqjL8CO4x6hOLmXAECg6RtVZqga7Nyvl2vVb9yQTS+GwgRuW8nL3DJ4JgZeafYHpC1Phctl7f1Ksuabxoc0NRqdMaGX9t5qMhV/LHahSpY0oEUaextMwc448+JSg5ZJBc5qsaekeALS9IgQoz/fd9KLZTiN+52brZ44ZaYoGwnP5mTdc3vNY7bFbwNmiu5sC1TUVHE056b1QRMMwKLu2nhB9m/nAT5QjjAVcgfOu14qslJ+7N7Ns6duSwNKRAxinX1L0+yCXMHNEaSLwAhUnvoTd52Fmj3nrd80apsQwNhPCikqBoVdbQy6kQT3/RsHucGeL1NtY5f9oQv1FJlqrYATJtwaXu45m4QvzMLYoufBIECA8Y0RgNoK5A6PAJaVUYdwjVa+rFqjWbibxZA73Fnl2YnfsoSwZtE="
+
+
 script:
   - ./gradlew build
   - ./gradlew clean test --info
+  - ./gradlew sonarqube
+
+
