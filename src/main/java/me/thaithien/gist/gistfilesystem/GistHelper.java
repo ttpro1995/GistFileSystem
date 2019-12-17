@@ -80,15 +80,24 @@ public class GistHelper {
      * @throws IOException 
      */
     public String upload(String name, String des, String content) throws IOException{
-        GistFile file = new GistFile();
-        file.setContent(content);
-        
-        Gist gist = new Gist();
-        gist.setDescription(des);
-        gist.setFiles(Collections.singletonMap(name, file));
-    
-        gist = service.createGist(gist);
-        return gist.getId();
+        int count = 0;
+        int maxTries = 2;
+        while(true) {
+            try {
+                GistFile file = new GistFile();
+                file.setContent(content);
+
+                Gist gist = new Gist();
+                gist.setDescription(des);
+                gist.setFiles(Collections.singletonMap(name, file));
+
+                gist = service.createGist(gist);
+                return gist.getId();
+            } catch (IOException e) {
+                // handle exception
+                if (++count == maxTries) throw e;
+            }
+        }
     }
     
     /**

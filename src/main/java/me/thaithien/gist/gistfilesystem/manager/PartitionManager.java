@@ -1,8 +1,10 @@
 package me.thaithien.gist.gistfilesystem.manager;
 
+import me.thaithien.gist.gistfilesystem.GistHelper;
 import me.thaithien.gist.gistfilesystem.object.Partition;
 import me.thaithien.gist.gistfilesystem.object.PartitionInfo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +32,19 @@ public class PartitionManager {
      * @param partitionInfo
      * @return
      */
-    public static PartitionInfo uploadPartitionInfo(PartitionInfo partitionInfo){
-         //    PartitionInfo uploadPartitionInfo = partitionInfo.
-
-        // TODO: work on here
-        return null;
+    public static PartitionInfo uploadPartitionInfo(PartitionInfo partitionInfo) throws IOException {
+        PartitionInfo urlPartitionInfo = new PartitionInfo(partitionInfo.getName());
+        List<Partition> uploadedPartionList = new ArrayList<>();
+        // TODO: test
+        for (Partition part : partitionInfo.getContents()){
+            long id = part.getId();
+            String content = GistHelper.getInstance().upload(String.valueOf(id), String.valueOf(id), part.getContent());
+            Partition uploadedPartition = new Partition(id, content);
+            uploadedPartionList.add(uploadedPartition);
+        }
+        urlPartitionInfo.setStatus(PartitionInfo.STATUS_URL);
+        urlPartitionInfo.setContents(uploadedPartionList);
+        return urlPartitionInfo;
 
     }
 }
